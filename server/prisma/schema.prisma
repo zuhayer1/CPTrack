@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+
+  // Add these lines
+  codeforcesHandle String? 
+  leetcodeHandle   String?
+  codechefHandle   String?
+
+  problemLogs  ProblemLog[]
+  contestMarks ContestBookmark[]
+}
+
+
+model Contest {
+  id         String   @id @default(cuid())
+  name       String
+  platform   String
+  startTime  DateTime
+  endTime    DateTime
+  duration   Int
+  link       String
+
+  contestMarks ContestBookmark[]
+}
+
+model ProblemLog {
+  id         String   @id @default(cuid())
+  userId     String
+  platform   String
+  name       String
+  link       String
+  difficulty Int
+  tags       String
+  status     String
+  notes      String
+
+  user       User     @relation(fields: [userId], references: [id])
+}
+
+model ContestBookmark {
+  id        String   @id @default(cuid())
+  userId    String
+  contestId String
+
+  user      User     @relation(fields: [userId], references: [id])
+  contest   Contest  @relation(fields: [contestId], references: [id])
+}
