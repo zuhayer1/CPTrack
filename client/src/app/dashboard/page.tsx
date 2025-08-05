@@ -85,6 +85,21 @@ function PlatformSection({
                       '—'
                     )}
                   </div>
+                  <div style={{ marginTop: '8px' }}>
+                    <button
+                      style={{
+                        padding: '6px 10px',
+                        backgroundColor: 'blue',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '4px',
+                        cursor: 'pointer',
+                      }}
+                      onClick={() => alert(`Edit ${label} handle`)}
+                    >
+                      Edit Handle
+                    </button>
+                  </div>
                 </div>
               </td>
 
